@@ -1,0 +1,38 @@
+Blog Link - http://qr.ae/TUpwxH
+
+Basically - f(n) = (n - 1)f(n - 1) + (n - 2)f(n - 2)
+
+There are two ways of arriving at a good permutation of length N. 
+
+Either you insert N at any of the (N - 1) legal spaces in a good permutation of length N. 
+
+Or you take a permutation of (N - 1) with exactly one pair (k, k + 1) and insert it in between them. How to count the number of 
+permutation of (N - 1) with one pair (k, k + 1) ? 
+
+Take any good permutation of (N - 2)
+
+Then, wherever k occurs, replace it with (k, k + 1). 
+
+All elements >= k + 1 in the original permutation are increased by 1. 
+
+Since it was a good permutation before, it had k, x. where x was not k + 1
+
+Now it will have .... k, k + 1, x + 1
+
+We can choose any of the (n - 2) elements and there are f(n - 2) such permutations. 
+
+Hence, f(n) = (n - 1)f(N - 1) + (n - 2)f(n - 2)
+
+---------------------------------------------------
+
+void precompute(vector <long long> &good_permutations, int N, int mod)
+{
+    good_permutations[0] = 1;
+    good_permutations[1] = 1;
+
+    for(int i = 2; i < N; i++)
+    {
+        good_permutations[i] = (i - 1)*good_permutations[i - 1] + (i - 2)*good_permutations[i - 2];
+        good_permutations[i] %= mod;
+    }
+}
